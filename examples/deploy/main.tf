@@ -26,7 +26,5 @@ module "eksa" {
   dp_device_count         = var.dp_device_count
   tags                    = var.tags
   eksa_version            = var.eksa_version
-  bottlerocket_image_url  = var.bottlerocket_image_url
-  tinkerbell_images       = var.tinkerbell_images
 }
 

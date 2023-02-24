@@ -251,35 +251,6 @@ resource "null_resource" "create_cluster" {
       )
     })
   }
-
-  provisioner "file" {
-    destination = "/root/cp-tinkerbelltemplateconfig.yaml"
-    content = templatefile("${path.module}/tinkerbelltemplateconfig.tftpl", {
-      POOL_ADMIN                  = local.pool_admin,
-      TINK_VIP                    = local.tink_vip,
-      BOTTLEROCKET_IMAGE_URL      = var.bottlerocket_image_url,
-      TEMPLATE_NAME               = replace("cp-${var.cluster_name}-${var.cp_device_type}", ".", "-"),
-      TINKERBELL_IMAGE_IMAGE2DISK = var.tinkerbell_images.image2disk,
-      TINKERBELL_IMAGES_WRITEFILE = var.tinkerbell_images.writefile,
-      TINKERBELL_IMAGES_REBOOT    = var.tinkerbell_images.reboot
-      NIC_NAME                    = replace(var.plan_nic[var.cp_device_type], ".", "-")
-    })
-  }
-
-  provisioner "file" {
-    destination = "/root/dp-tinkerbelltemplateconfig.yaml"
-    content = templatefile("${path.module}/tinkerbelltemplateconfig.tftpl", {
-      POOL_ADMIN                  = local.pool_admin,
-      TINK_VIP                    = local.tink_vip,
-      BOTTLEROCKET_IMAGE_URL      = var.bottlerocket_image_url,
-      TEMPLATE_NAME               = replace("dp-${var.cluster_name}-${var.dp_device_type}", ".", "-"),
-      TINKERBELL_IMAGE_IMAGE2DISK = var.tinkerbell_images.image2disk,
-      TINKERBELL_IMAGES_WRITEFILE = var.tinkerbell_images.writefile,
-      TINKERBELL_IMAGES_REBOOT    = var.tinkerbell_images.reboot
-      NIC_NAME                    = replace(var.plan_nic[var.dp_device_type], ".", "-")
-    })
-  }
-
   provisioner "remote-exec" {
     inline = [
       "chmod +x /root/setup-clusterconfig.sh",

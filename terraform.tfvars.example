@@ -1,3 +1,0 @@
-# terraform.fvars
-metal_api_token="...your Metal User API Token here..."
-project_id="...your Metal Project API Token here..."
